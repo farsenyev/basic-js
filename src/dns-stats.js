@@ -1,4 +1,5 @@
 const { NotImplementedError } = require('../extensions/index.js');
+const {c} = require("sinon/lib/sinon/spy-formatters.js");
 
 /**
  * Given an array of domains, return the object with the appearances of the DNS.
@@ -22,9 +23,23 @@ const { NotImplementedError } = require('../extensions/index.js');
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  throw new NotImplementedError('Not implemented');
+function getDNSStats(domains) {
+  // throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
+  let obj = {}
+  for (const el of domains){
+    const part = el.split('.').reverse()
+    let current = ''
+    for (const p of part){
+      current = (current ? current : '') + '.' + p
+      if (!obj[current]){
+        obj[current] = 1
+      }else {
+        obj[current]++
+      }
+    }
+  }
+  return obj
 }
 
 module.exports = {
